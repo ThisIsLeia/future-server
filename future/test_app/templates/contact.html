@@ -1,0 +1,36 @@
+<form onsubmit="submitForm(event)">
+  <label for="username">使用者名稱：</label>
+  <input type="text" id="username"><br>
+
+  <label for="email">電子郵件地址：</label>
+  <input type="email" id="email"><br>
+
+  <label for="content">諮詢內容：</label>
+  <textarea id="content"></textarea><br>
+
+  <button type="submit" onclick="window.location.href='/contact/settle'">提交</button>
+</form>
+
+<script>
+function submitForm(event) {
+  event.preventDefault();
+
+  // 獲取表單數據
+  const username = document.getElementById('username').value;
+  const email = document.getElementById('email').value;
+  const content = document.getElementById('content').value;
+
+  // 將表單數據轉換為JSON對象
+  const data = {
+    username,
+    email,
+    content
+  };
+
+  // 發送POST請求到您的API端點
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', '/contact/complete');
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send(JSON.stringify(data));
+}
+</script>
