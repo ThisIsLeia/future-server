@@ -12,7 +12,6 @@ def dataschema(schema):
         @wraps(f)
         def new_func(*args, **kwargs):
             try:
-                print('request.json====>', request.json)
                 kwargs.update(schema(request.json))
             except Invalid as e:
                 path = '.'.join([str(x) for x in e.path])

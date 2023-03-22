@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <title>諮詢完成</title>
-    <link
-        rel="stylesheet"
-        href="{{url_for('static', filename='style.css')}}"
-    />
-</head>
-<!--<body>-->
-<!--    <h2>諮詢完成</h2>-->
-<!--    <p>您的諮詢內容為：</p>-->
-<!--    <p>{{ content }}</p>-->
-<!--</body>-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <header>
+      <h1>諮詢完成</h1>
+    </header>
+    <main>
+      <p>感謝您的諮詢！</p>
+      <p>以下是您的諮詢內容：</p>
+      <div class="content">{{ content }}</div>
+    </main>
+    <footer>
+      <p>版權所有 &copy; 2023 Leia Company</p>
+    </footer>
+  </body>
 </html>
