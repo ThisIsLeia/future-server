@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, url_for, redirect, flash
+from flask import Flask, render_template, url_for, request, url_for, redirect, flash, json
 from voluptuous import Schema, Required, All, Length
 from future.decorators import dataschema
 
@@ -33,10 +33,11 @@ def contact_complete(**kwargs):
 
     # 傳送電子郵電
 
-    return redirect(url_for('contact_settle'))
+    return redirect(url_for('contact_settle', content=kwargs['content']))
 
 
 @app.route('/contact/settle')
-def contact_settle(**kwargs):
-    return render_template('contact_complete.html')
+def contact_settle():
+    content = request.args.get('content', '')
+    return render_template('contact_complete.html', content=content)
 

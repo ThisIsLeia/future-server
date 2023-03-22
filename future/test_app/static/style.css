@@ -1,0 +1,71 @@
+/* 設定頁面全域字型 */
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* 設定標題樣式 */
+h1 {
+  font-size: 2em;
+  color: #333;
+  text-align: center;
+}
+
+/* 設定內容樣式 */
+.content {
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+  font-size: 1.2em;
+  line-height: 1.5;
+  /* 新增背景色及文字顏色 */
+  background-color: #f9f9f9;
+  color: #333;
+  /* 新增置中樣式 */
+  text-align: center;
+}
+
+/* 設定連結樣式 */
+a {
+  color: #337ab7;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #23527c;
+  text-decoration: underline;
+}
+
+/* 設定按鈕樣式 */
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  background-color: #337ab7;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #23527c;
+}
+
+/* 設定頁腳樣式 */
+footer {
+  text-align: center;
+  margin-top: 50px;
+  padding: 20px;
+  background-color: #f2f2f2;
+  /* 新增文字顏色 */
+  color: #555;
+}
+
+/* 新增主要內容置中樣式 */
+main {
+  text-align: center;
+}
+
+/* 新增段落文字置中樣式 */
+main p {
+  text-align: center;
+}
