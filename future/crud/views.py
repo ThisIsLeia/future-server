@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, redirect, url_for
 from future.app import db
 from future.crud.models import User
-
 from future.crud.forms import UserForm
+from flask_login import login_required
 
 
 # 使用 Blueprint 建立 crud 應用程式
@@ -16,17 +16,20 @@ crud = Blueprint(
 
 # 建立 index 端點並回傳 index.html
 @crud.route("/")
+@login_required
 def index():
     return render_template('crud/index.html')
 
 
 @crud.route("/sql")
+@login_required
 def sql():
     db.session.query(User).all()
     return '請控制台日誌'
 
 
 @crud.route("/user/new", methods=['get', 'post'])
+@login_required
 def create_user():
     form = UserForm()
     if form.validate_on_submit():
@@ -45,6 +48,7 @@ def create_user():
 
 
 @crud.route("/users")
+@login_required
 def users():
     """取得使用者列表"""
     users = User.query.all()
@@ -52,6 +56,7 @@ def users():
 
 
 @crud.route("/users/<user_id>", methods=['GET', 'POST'])
+@login_required
 def edit_user(user_id):
     """編輯使用者"""
     form = UserForm()
@@ -72,6 +77,7 @@ def edit_user(user_id):
 
 
 @crud.route("/users/<user_id>/delete", methods=['POST'])
+@login_required
 def delete_user(user_id):
     """刪除使用者"""
     user = User.query.filter_by(id=user_id).first()

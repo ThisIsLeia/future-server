@@ -10,15 +10,6 @@
         />
     </head>
     <body>
-        <div>
-            <!-- flask-login 套件，current_user 會自動設置使用者資訊回傳給模板 -->
-            {% if current_user.is_authenticated %}
-            <p>
-                <span>{{ current_user.username }}</span> -
-                <span><a href="{{ url_for('auth.logout') }}">登出</a></span>
-            </p>
-            {% endif %}
-        </div>
         <!-- 在繼承目的地實作content -->
         {% block content %}{% endblock %}
     </body>
