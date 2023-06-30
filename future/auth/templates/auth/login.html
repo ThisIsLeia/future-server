@@ -1,0 +1,32 @@
+{% extends "auth/base.html" %}
+{% block title %}登入{% endblock %}
+{% block content %}
+<h2>登入</h2>
+<form
+    action="{{ url_for('auth.login') }}"
+    method="POST"
+    novalidate="novalidate"
+>   
+    {% for message in get_flashed_messages() %}
+    <spam style="color: red;">{{ message }}</spam>
+    {% endfor %}
+    
+    {{ form.csrf_token }}
+
+    <p>
+        {{ form.email.label }}
+        {{ form.email(placeholder="電子信箱") }}
+    </p>
+    {% for error in form.email.errors %}
+    <spam style="color: red;">{{ error }}</spam>
+    {% endfor %}
+    <p>
+        {{ form.password.label }}
+        {{ form.password(placeholder="密碼") }}
+    </p>
+    {% for error in form.password.errors %}
+    <spam style="color: red;">{{ error }}</spam>
+    {% endfor %}
+    <p>{{ form.submit() }}</p>
+</form>
+{% endblock %}
