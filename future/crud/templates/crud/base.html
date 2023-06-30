@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <!-- 在繼承目的地實作title -->
+        <title>{% block title %}{% endblock %}</title>
+        <link
+            rel="stylesheet"
+            href="{{ url_for('crud.static', filename='style.css') }}"
+        />
+    </head>
+    <body>
+        <!-- 在繼承目的地實作content -->
+        {% block content %}{% endblock %}
+    </body>
+</html>

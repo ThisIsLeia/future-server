@@ -16,8 +16,8 @@ def create_app():
     # 設定應用程式的組態
     app.config.from_mapping(
         SECRET_KEY="jlhvgo76fliuhbluyf",
-        SQLALCHEMY_DATABASE_URI='mysql+pymysql://root:root@0.0.0.0:3306/future?charset=utf8mb4',
         # mysql+pymysql://username:password@localhost/db_name?charset=utf8mb4
+        SQLALCHEMY_DATABASE_URI='mysql+pymysql://root:root@0.0.0.0:3306/future?charset=utf8mb4',
         SQLALCHEY_TRACK_MODIFICATIONS=False,
         # 設定在控制台日誌輸出SQL
         SQLALCHEY_ECHO=True,

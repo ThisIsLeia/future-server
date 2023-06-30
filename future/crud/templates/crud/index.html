@@ -1,29 +1,22 @@
-<!DOCTYPE html>
-<html lang="ja">
-    <head>
-        <meta charset="UTF-8" />
-        <title>使用者列表</title>
-        <link rel="stylesheet" href="{{ url_for('crud.static', filename='style.css') }}" />
-    </head>
-
-    <body>
-        <h2>使用者列表</h2>
-        <a href="{{ url_for('crud.create_user') }}"新增使用者></a>
-        <table>
-            <tr>
-                <th>使用者ID</th>
-                <th>使用者名稱</th>
-                <th>電子郵件</th>
-            </tr>
-            {% for user in users %}
-            <tr>
-                <td>
-                    <a href="{{ url_for('crud.edit_user', user_id=user.id) }}">{{ user.id }}</a>
-                </td>
-                <td>{{user.username}}</td>
-                <td>{{user.email}}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    </body>
-</html>
+{% extends "crud/base.html" %}
+{% block title %}使用者列表{% endblock %}
+{% block content %}
+<h2>使用者列表</h2>
+<a href="{{ url_for('crud.create_user') }}"新增使用者></a>
+<table>
+    <tr>
+        <th>使用者ID</th>
+        <th>使用者名稱</th>
+        <th>電子郵件</th>
+    </tr>
+    {% for user in users %}
+    <tr>
+        <td>
+            <a href="{{ url_for('crud.edit_user', user_id=user.id) }}">{{ user.id }}</a>
+        </td>
+        <td>{{user.username}}</td>
+        <td>{{user.email}}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
