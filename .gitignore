@@ -1,0 +1,6 @@
+# gitignore 的資料夾
+__pycache__/
+
+# gitignore 的檔案
+*.pyc
+.python-version
