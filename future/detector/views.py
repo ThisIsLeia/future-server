@@ -11,13 +11,13 @@ def index():
     """連結 User & UserImage 取得圖片列表"""
     user_images = (
         db.session.query(User, UserImage)
-        .join(User.image)
+        .join(UserImage)
         .filter(User.id == UserImage.user_id)
         .all()
     )
 
     u = db.session.query(User, UserImage
-                         ).join(User.image
+                         ).join(UserImage
                                 ).filter(User.id == UserImage.user_id
                                          ).all()
     
