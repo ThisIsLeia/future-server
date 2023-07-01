@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from future.app import db
-from future.crud.models import User
+from future.user.models import User
 from future.auth.forms import SignupForm, LoginForm
 from flask_login import login_user, logout_user
 
@@ -44,7 +44,7 @@ def signup():
         # 通過登入驗證 -> 導向使用者列表頁面 GET參數的next鍵沒有值
         next_ = request.args.get('next')
         if next_ is None or not next_.startwith('/'):
-            next_ = url_for('crud.users')
+            next_ = url_for('user.users')
         return redirect(next_)
 
     return render_template('auth/signup.html', form=form)
@@ -57,7 +57,7 @@ def login():
 
         if user is not None and user.verify_password(form.password.data):
             login_user(user)
-            return redirect(url_for('crud.users'))
+            return redirect(url_for('user.users'))
         
         # 設定登入失敗的訊息
         flash('郵件位置或密碼不正確')
