@@ -74,3 +74,16 @@ input[type="search"] {
 .dt-image-submit {
     margin-left: 10px;
 }
+
+.navbar-brand {
+    color: #f8f9fa;
+}
+
+.nav-link {
+    color: #055160;
+}
+
+.nav-item {
+    color: #055160;
+}
+  
