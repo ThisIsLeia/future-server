@@ -1,9 +1,9 @@
-{% extends "crud/base.html" %}
+{% extends "user/base.html" %}
 {% block title %}新增使用者{% endblock %}
 {% block content %}
 <h2>新增使用者</h2>
 <form
-    action="{{ url_for('crud.create_user') }}"
+    action="{{ url_for('user.create_user') }}"
     method="POST"
     novalidate="novalidate"
 >

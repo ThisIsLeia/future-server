@@ -44,11 +44,11 @@ def create_app(config_key):
 
     login_manager.init_app(app)
 
-    from future.crud import views as crud_views
+    from future.user import views as user_views
     from future.auth import views as auth_views
     from future.detector import views as detector_views
 
-    app.register_blueprint(crud_views.crud, url_prefix='/crud')
+    app.register_blueprint(user_views.user, url_prefix='/user')
     app.register_blueprint(auth_views.auth, url_prefix='/auth')
     app.register_blueprint(detector_views.dt) # 不指定 url_prefix 以便物件偵測應用程式當作應用程式路由
 

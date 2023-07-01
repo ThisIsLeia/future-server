@@ -1,13 +1,13 @@
 from flask import Blueprint, render_template, redirect, url_for
 from future.app import db
-from future.crud.models import User
-from future.crud.forms import UserForm
+from future.user.models import User
+from future.user.forms import UserForm
 from flask_login import login_required
 
 
-# 使用 Blueprint 建立 crud 應用程式
-crud = Blueprint(
-    "crud",
+# 使用 Blueprint 建立 user 應用程式
+user = Blueprint(
+    "user",
     __name__,
     template_folder="templates",
     static_folder="static",
@@ -15,20 +15,20 @@ crud = Blueprint(
 
 
 # 建立 index 端點並回傳 index.html
-@crud.route("/")
+@user.route("/")
 @login_required
 def index():
-    return render_template('crud/index.html')
+    return render_template('user/index.html')
 
 
-@crud.route("/sql")
+@user.route("/sql")
 @login_required
 def sql():
     db.session.query(User).all()
     return '請控制台日誌'
 
 
-@crud.route("/user/new", methods=['get', 'post'])
+@user.route("/user/new", methods=['get', 'post'])
 @login_required
 def create_user():
     form = UserForm()
@@ -43,19 +43,19 @@ def create_user():
         db.session.commit()
 
         # 重新導向使用者列表頁面
-        return redirect(url_for('crud.users'))
-    return render_template('crud/create.html', form=form)
+        return redirect(url_for('user.users'))
+    return render_template('user/create.html', form=form)
 
 
-@crud.route("/users")
+@user.route("/users")
 @login_required
 def users():
     """取得使用者列表"""
     users = User.query.all()
-    return render_template('crud/index.html', users=users)
+    return render_template('user/index.html', users=users)
 
 
-@crud.route("/users/<user_id>", methods=['GET', 'POST'])
+@user.route("/users/<user_id>", methods=['GET', 'POST'])
 @login_required
 def edit_user(user_id):
     """編輯使用者"""
@@ -71,12 +71,12 @@ def edit_user(user_id):
         db.session.add(user)
         db.session.commit()
         # 重新導向使用者列表頁面
-        return redirect(url_for('crud.users'))
+        return redirect(url_for('user.users'))
     # 請求方法為get時回傳
-    return render_template('crud/edit.html', user=user, form=form)
+    return render_template('user/edit.html', user=user, form=form)
 
 
-@crud.route("/users/<user_id>/delete", methods=['POST'])
+@user.route("/users/<user_id>/delete", methods=['POST'])
 @login_required
 def delete_user(user_id):
     """刪除使用者"""
@@ -85,4 +85,4 @@ def delete_user(user_id):
     db.session.delete(user)
     db.session.commit()
     # 重新導向使用者列表頁面
-    return redirect(url_for('crud.users'))
+    return redirect(url_for('user.users'))

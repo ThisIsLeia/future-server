@@ -16,7 +16,9 @@ class User(db.Model, UserMixin):
     password_hash = db.Column(db.String(255))
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
-
+    # 對其他表進行雙向關聯，由 user 物件呼叫 UserImage 的物件（欄位），如 user.user_images
+    # 一對多 輸出結果為 UserImages 物件陣列
+    user_images = db.relationship('UserImage', backref='user')
 
     @property
     def password(self):
