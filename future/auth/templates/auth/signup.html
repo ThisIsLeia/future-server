@@ -1,38 +1,25 @@
-{% extends "auth/base.html" %}
-{% block title %}新增使用者{% endblock %}
+{% extends "detector/base.html" %}
+{% block title %}註冊新用戶{% endblock %}
 {% block content %}
-<h2>新增使用者</h2>
-<form
-    action="{{ url_for('auth.signup', next=request.args.get('next'))}}"
-    method="POST"
-    novalidate="novalidate"
->   
-    {% for message in get_flashed_messages() %}
-    <spam style="color: red;">{{ message }}</spam>
-    {% endfor %}
-
-    {{ form.csrf_token }}
-    <p>
-        {{ form.username.label }}
-        {{ form.username(size=30, placeholder="使用者名稱") }}
-    </p>
-    {% for error in form.username.errors %}
-    <spam style="color: red;">{{ error }}</spam>
-    {% endfor %}
-    <p>
-        {{ form.email.label }}
-        {{ form.email(placeholder="電子信箱") }}
-    </p>
-    {% for error in form.email.errors %}
-    <spam style="color: red;">{{ error }}</spam>
-    {% endfor %}
-    <p>
-        {{ form.password.label }}
-        {{ form.password(placeholder="密碼") }}
-    </p>
-    {% for error in form.password.errors %}
-    <spam style="color: red;">{{ error }}</spam>
-    {% endfor %}
-    <p>{{ form.submit() }}</p>
-</form>
+<div class="mx-auto dt-auth-main">
+    <div class="card dt-auth-signup">
+        <header>註冊新用戶</header>
+        <section>
+            <form
+                action="{{ url_for('auth.signup', next=request.args.get('next'))}}"
+                method="POST"
+                class="form-signin"
+            >
+                {{ form.csrf_token }}
+                {% for message in get_flashed_messages() %}
+                <div class="dt-auth-flash">{{ message }}</div>
+                {% endfor %}
+                {{ form.username(size=30, class="form-control dt-auth-input", placeholder="使用者名稱") }}
+                {{ form.email(class="form-control dt-auth-input", placeholder="電子郵件") }}
+                {{ form.password(class="form-control dt-auth-input", placeholder="密碼") }}
+                {{ form.submit(class="btn btn-md btn-primary btn-block dt-auth-btn") }}
+            </form>
+        </section>
+    </div>
+</div>
 {% endblock %}

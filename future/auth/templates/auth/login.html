@@ -1,32 +1,25 @@
-{% extends "auth/base.html" %}
+{% extends "detector/base.html" %}
 {% block title %}登入{% endblock %}
 {% block content %}
-<h2>登入</h2>
-<form
-    action="{{ url_for('auth.login') }}"
-    method="POST"
-    novalidate="novalidate"
->   
-    {% for message in get_flashed_messages() %}
-    <spam style="color: red;">{{ message }}</spam>
-    {% endfor %}
-    
-    {{ form.csrf_token }}
+<div class="mx-auto dt-auth-main">
+    <div class="card dt-auth-signup">
+        <header>登入</header>
+        <section>
 
-    <p>
-        {{ form.email.label }}
-        {{ form.email(placeholder="電子信箱") }}
-    </p>
-    {% for error in form.email.errors %}
-    <spam style="color: red;">{{ error }}</spam>
-    {% endfor %}
-    <p>
-        {{ form.password.label }}
-        {{ form.password(placeholder="密碼") }}
-    </p>
-    {% for error in form.password.errors %}
-    <spam style="color: red;">{{ error }}</spam>
-    {% endfor %}
-    <p>{{ form.submit() }}</p>
-</form>
+            <form
+                action="{{ url_for('auth.login') }}"
+                method="POST"
+                novalidate="novalidate"
+            >   
+                {% for message in get_flashed_messages() %}
+                <span class="dt-auth-flash">{{ message }}</span>
+                {% endfor %}
+                {{ form.csrf_token }}
+                {{ form.email(class="form-control dt-auth-input", placeholder="電子信箱") }}
+                {{ form.password(class="form-control dt-auth-input", placeholder="密碼") }}
+                {{ form.submit(class="btn btn-md btn-primary btn-block dt-auth-btn") }}
+            </form>
+        </section>
+    </div>
+</div>
 {% endblock %}

@@ -44,7 +44,8 @@ def signup():
         # 通過登入驗證 -> 導向使用者列表頁面 GET參數的next鍵沒有值
         next_ = request.args.get('next')
         if next_ is None or not next_.startwith('/'):
-            next_ = url_for('user.users')
+            # next_ = url_for('user.users')
+            next_ = url_for('detector.index')
         return redirect(next_)
 
     return render_template('auth/signup.html', form=form)
@@ -57,7 +58,7 @@ def login():
 
         if user is not None and user.verify_password(form.password.data):
             login_user(user)
-            return redirect(url_for('user.users'))
+            return redirect(url_for('detector.index'))
         
         # 設定登入失敗的訊息
         flash('郵件位置或密碼不正確')
