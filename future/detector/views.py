@@ -46,13 +46,8 @@ def upload_image():
         # 儲存圖片
         image_path = Path(
             current_app.config['UPLOAD_FOLDER'], image_uuid_file_name
-        )
-
-        print('image_path====>', image_path)
-
+        ) # /Users/leia/future-server/future/images/ccf9494b-153c-4dae-b405-a62fd185284f.jpg
         file.save(image_path)
-
-        
 
         # 存至資料庫
         user_image = UserImage(
