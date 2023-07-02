@@ -1,0 +1,29 @@
+{% extends "detector/base.html" %}
+{% block content %}
+<div>
+    <h4>新增圖片</h4>
+    <p>請選擇要上傳的圖片</p>
+    <form
+        action="{{ url_for('detector.upload_image') }}"
+        method="POST"
+        enctype="multipart/form-data"
+        novalidate="novalidate"
+    >
+        {{ form.csrf_token }}
+        <div>
+            <label>
+                <span>{{ form.image(class="form-control-file") }}</span>
+            </label>
+        </div>
+        {% for error in form.image.errors %}
+        <span style="color: red;">{{ error }}</span>
+        {% endfor %}
+
+        <div>
+            <label>
+                {{ form.submit(class="btn btn-primary") }}
+            </label>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -6,6 +6,8 @@ basedir = Path(__file__).parent.parent
 class BaseConfig:
     SECRET_KEY = 'jlhvgo76fliuhbluyf',
     WTF_CSRF_SECRET_KEY = "femwgjfnloirjg;qpeor"
+    # 圖片上傳目的地指定
+    UPLOAD_FOLDER = str(Path(basedir, 'future', 'images'))
 
 
 # 繼承 BaseConfig 類別，建立 LocalConfig 類別

@@ -3,4 +3,5 @@ __pycache__/
 
 # gitignore 的檔案
 *.pyc
+*.DS_Store
 .python-version
