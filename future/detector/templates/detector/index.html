@@ -1,5 +1,16 @@
 {% extends "detector/base.html" %}
 {% block content %}
+<!-- 安排flash錯誤 -->
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul>
+    {% for message in messages %}
+    <li class="flash">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
 <!-- 增加圖片上傳的頁面連結 -->
 <div class="col-md-10 text-right dt-image-register-btn">
     <a href="{{ url_for('detector.upload_image') }}" class="btn btn-primary">
@@ -11,12 +22,36 @@
 <div class="card col-md-7 dt-image-content">
     <header class="d-flex justify-content-between">
         <div class="dt-image-username">{{ user_image.User.username }}</div>
+        <!-- 增加物件偵測表單 -->
+        <div class="d-flex flex-row-reverse">
+            <div class="p-2">
+                <form
+                    action="{{ url_for('detector.detect', image_id=user_image.UserImage.id)}}"
+                    method="POST"
+                >
+                    {{ detector_form.csrf_token}}
+                    {% if current_user.id == user_image.User.id and 
+                        user_image.UserImage.is_detected == False %}
+                    {{ detector_form.submit(class="btn btn-primary") }}
+                    {% else %}
+                    {{ detector_form.submit(class="btn btn-primary", disabled="disabled") }}
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+
     </header>
     <section>
         <img 
             src="{{ url_for('detector.image_file', filename=user_image.UserImage.image_path) }}" 
             alt="上傳圖片" />
     </section>
+    <!-- 顯示標記資訊 -->
+    <footer>
+        {% for tag in user_image_tag_dict[user_image.UserImage.id] %}
+            #{{tag.tag_name}}
+        {% endfor %}
+    </footer>
 </div>
 {% endfor %}
 {% endblock %}
