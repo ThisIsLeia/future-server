@@ -1,4 +1,7 @@
-from flask import Blueprint, render_template, current_app, send_from_directory, redirect, url_for, flash
+from flask import (
+    Blueprint, render_template, current_app, 
+    send_from_directory, redirect, url_for, flash, request
+    )
 from future.app import db
 from future.user.models import User
 from future.detector.models import UserImage, UserImageTag
@@ -237,3 +240,50 @@ def delete_image(image_id):
 
     return redirect(url_for('detector.index'))
 
+
+@dt.route('/images/search', methods=['GET'])
+def search():
+    user_images = db.session.query(User, UserImage).join(
+        UserImage, User.id  == UserImage.user_id
+    )
+
+    search_text = request.args.get('search')
+    user_image_tag_dict = {}
+    filtered_user_images = []
+
+    for user_image in user_images:
+        # 當搜尋空白時取得所有標記
+        if not search_text:
+            user_image_tags = db.session.query(UserImageTag).filter(
+                UserImageTag.user_image_id == user_image.UserImage.id
+            ).all()
+
+        # 取得關鍵字標記
+        else:
+            user_image_tags = db.session.query(UserImageTag).filter(
+                UserImageTag.user_image_id == user_image.UserImage.id
+            ).filter(UserImageTag.tag_name.like(
+                "%" + search_text +"%"
+            )).all()
+
+        # 若找不到標記則不回傳圖片
+        if not user_image_tags:
+            continue
+        
+        # 找到標記時，重新取得標記資訊
+        user_image_tags = db.session.query(UserImageTag).filter(
+            UserImageTag.user_image_id == user_image.UserImage.id).all()
+        
+        # 字典 key : value -> user_image_id : 標記
+        user_image_tag_dict[user_image.UserImage.id] = user_image_tags
+
+        # 使用陣列設置篩選結果的 user_image 資訊
+        filtered_user_images.append(user_image)
+
+    return render_template(
+        'detector/index.html',
+        user_images = filtered_user_images,
+        user_image_tag_dict=user_image_tag_dict,
+        delete_form = DeleteForm(),
+        detector_form = DetectorForm()
+    )
