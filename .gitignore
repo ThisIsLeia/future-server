@@ -1,7 +1,9 @@
 # gitignore 的資料夾
 __pycache__/
+images/
 
 # gitignore 的檔案
 *.pyc
 *.DS_Store
 .python-version
+model.pt

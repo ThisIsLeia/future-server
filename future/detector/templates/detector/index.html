@@ -22,8 +22,23 @@
 <div class="card col-md-7 dt-image-content">
     <header class="d-flex justify-content-between">
         <div class="dt-image-username">{{ user_image.User.username }}</div>
-        <!-- 增加物件偵測表單 -->
         <div class="d-flex flex-row-reverse">
+            <!-- 增加刪除按鈕的表單 -->
+            <div class="p-2">
+                <form
+                    action="{{ url_for('detector.delete_image', image_id=user_image.UserImage.id)}}"
+                    method="POST"
+                >
+                    {{ delete_form.csrf_token}}
+                    {% if current_user.id == user_image.User.id %}
+                    {{ delete_form.submit(class="btn btn-danger") }}
+                    {% else %}
+                    {{ delete_form.submit(class="btn btn-danger", disabled="disabled") }}
+                    {% endif %}
+                </form>
+            </div>
+
+            <!-- 增加物件偵測表單 -->
             <div class="p-2">
                 <form
                     action="{{ url_for('detector.detect', image_id=user_image.UserImage.id)}}"
