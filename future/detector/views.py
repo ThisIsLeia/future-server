@@ -4,7 +4,7 @@ from future.user.models import User
 from future.detector.models import UserImage, UserImageTag
 import uuid
 from pathlib import Path
-from future.detector.forms import UploadImageForm, DetectorForm
+from future.detector.forms import UploadImageForm, DetectorForm, DeleteForm
 from flask_login import current_user, login_required
 import random, cv2, torch, torchvision
 import numpy as np
@@ -37,7 +37,8 @@ def index():
         # 將標記列表傳給模板
         user_image_tag_dict = user_image_tag_dict,
         # 將物件偵測表單傳給模板
-        detector_form=DetectorForm()
+        detector_form=DetectorForm(),
+        delete_form=DeleteForm()
     )
 
 
@@ -210,3 +211,29 @@ def save_detected_image_tags(user_image, tags, detected_image_file_name):
         db.session.add(user_image_tag)
 
     db.session.commit()
+
+
+@dt.route('/images/delete/<string:image_id>', methods=['POST'])
+@login_required
+def delete_image(image_id):
+    """刪除已上傳、已識別圖片"""
+    try:
+        # 由 user_image_tags 表格刪除
+        db.session.query(UserImageTag).filter(
+            UserImageTag.user_image_id == image_id
+        ).delete()
+
+        # 由 user_images 表格刪除
+        db.session.query(UserImage).filter(
+            UserImage.id == image_id).delete()
+        
+        db.session.commit()
+
+    except SQLAlchemyError as e:
+        flash('圖片刪除處理發生錯誤')
+        # 輸出錯誤日誌
+        current_app.logger.error(e)
+        db.session.rollback()
+
+    return redirect(url_for('detector.index'))
+

@@ -18,3 +18,8 @@ class UploadImageForm(FlaskForm):
 
 class DetectorForm(FlaskForm):
     submit = SubmitField('檢測')
+
+
+
+class DeleteForm(FlaskForm):
+    submit = SubmitField('刪除')
