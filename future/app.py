@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from pathlib import Path
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
@@ -48,8 +48,21 @@ def create_app(config_key):
     from future.auth import views as auth_views
     from future.detector import views as detector_views
 
+    app.register_error_handler(404, page_not_foind)
+    app.register_error_handler(500, internal_server_error)
+
     app.register_blueprint(user_views.user, url_prefix='/user')
     app.register_blueprint(auth_views.auth, url_prefix='/auth')
     app.register_blueprint(detector_views.dt) # 不指定 url_prefix 以便物件偵測應用程式當作應用程式路由
 
     return app
+
+
+def page_not_foind(e):
+    """ 404 Not Found """
+    return render_template('404.html'), 404
+
+
+def internal_server_error(e):
+    """ 500 Internal Server Error """
+    return render_template('500.html'), 500
