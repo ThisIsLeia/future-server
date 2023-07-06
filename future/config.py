@@ -115,7 +115,9 @@ class LocalConfig(BaseConfig):
 class TestingConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:root@0.0.0.0:3306/future?charset=utf8mb4'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    WTF_CSRF_ENABLE = False
+    WTF_CSRF_ENABLED = False
+    # 測試用的圖片上傳目錄
+    UPLOAD_FOLDER = str(Path(basedir, 'tests', 'detector', 'images'))
 
 # 建立組態字典
 config = {
