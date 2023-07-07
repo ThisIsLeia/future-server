@@ -45,7 +45,7 @@ terminal
  > python
  > import torch
  > import torchvision
- > modle = torchvision.models.detectioin.maskrcnn_resnet50_fpn(pretrained=True)
+ > model = torchvision.models.detection.maskrcnn_resnet50_fpn(pretrained=True)
  > torch.save(model, 'model.pt')
  ```
 
